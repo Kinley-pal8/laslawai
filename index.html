@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For You 💚</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-mint: #00f5d4;
+        --secondary-mint: #00d9ff;
+        --dark-mint: #006a75;
+        --light-mint: rgba(0, 245, 212, 0.1);
+        --mint-gradient: linear-gradient(
+          135deg,
+          #00f5d4 0%,
+          #00d9ff 50%,
+          #72efdd 100%
+        );
+        --glass-bg: rgba(255, 255, 255, 0.08);
+        --glass-border: rgba(0, 245, 212, 0.2);
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.85);
+        --shadow-mint: 0 20px 60px rgba(0, 245, 212, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a4645 0%,
+          #2d7d7a 50%,
+          #006a75 100%
+        );
+        background-attachment: fixed;
+        min-height: 100vh;
+        color: var(--text-primary);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Mint Particle Background */
+      .mint-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .mint-particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--primary-mint);
+        border-radius: 50%;
+        animation: mintFloat 15s infinite linear;
+        opacity: 0.6;
+        box-shadow: 0 0 10px var(--primary-mint);
+      }
+
+      @keyframes mintFloat {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Main Container */
+      .main-container {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      /* Hero Title */
+      .hero-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: mintGlow 4s ease-in-out infinite;
+        letter-spacing: -2px;
+        text-shadow: 0 0 40px rgba(0, 245, 212, 0.5);
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes mintGlow {
+        0%,
+        100% {
+          background-position: 0% 50%;
+          filter: drop-shadow(0 0 20px rgba(0, 245, 212, 0.3));
+        }
+        50% {
+          background-position: 100% 50%;
+          filter: drop-shadow(0 0 30px rgba(0, 245, 212, 0.6));
+        }
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        font-weight: 300;
+        margin-bottom: 3rem;
+        color: var(--text-secondary);
+        letter-spacing: 2px;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Counter Display */
+      .milestone-counter {
+        background: var(--glass-bg);
+        backdrop-filter: blur(30px);
+        border: 2px solid var(--glass-border);
+        border-radius: 25px;
+        padding: 2.5rem 3rem;
+        margin: 2rem 0;
+        box-shadow: var(--shadow-mint);
+        opacity: 0;
+        animation: fadeInUp 1.5s ease 1s forwards;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .milestone-counter::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 245, 212, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotateGlow 20s linear infinite;
+      }
+
+      @keyframes rotateGlow {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .counter-number {
+        font-size: 5rem;
+        font-weight: 700;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: mintGlow 4s ease-in-out infinite;
+        display: block;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .counter-label {
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--text-secondary);
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Interactive Heart */
+      .heart-display {
+        margin: 3rem 0;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .main-heart {
+        font-size: 8rem;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: heartPulse 3s ease-in-out infinite;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        filter: drop-shadow(0 0 30px rgba(0, 245, 212, 0.6));
+      }
+
+      .main-heart:hover {
+        transform: scale(1.2) rotate(10deg);
+        filter: drop-shadow(0 0 50px rgba(0, 245, 212, 1));
+      }
+
+      @keyframes heartPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .heart-particles {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .heart-particle {
+        position: absolute;
+        font-size: 2rem;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        opacity: 0;
+        animation: heartFloat 4s ease-out infinite;
+      }
+
+      @keyframes heartFloat {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) rotate(0deg) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--random-x, 0), -250px) rotate(360deg)
+            scale(0.3);
+        }
+      }
+
+      /* Message Card */
+      .message-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(30px);
+        border: 2px solid var(--glass-border);
+        border-radius: 30px;
+        padding: 3rem;
+        margin: 3rem 0;
+        max-width: 700px;
+        box-shadow: var(--shadow-mint);
+        position: relative;
+        overflow: hidden;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .message-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 245, 212, 0.1),
+          transparent
+        );
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .message-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--text-primary);
+        position: relative;
+        z-index: 2;
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+
+      .signature {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.6rem;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: mintGlow 4s ease-in-out infinite;
+        position: relative;
+        z-index: 2;
+        font-weight: 400;
+      }
+
+      /* Special Button */
+      .special-button {
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        border: none;
+        border-radius: 50px;
+        padding: 1.5rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1a4645;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: 0 15px 40px rgba(0, 245, 212, 0.3);
+        margin-top: 2rem;
+        position: relative;
+        overflow: hidden;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .special-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .special-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 25px 50px rgba(0, 245, 212, 0.5);
+        animation: mintGlow 2s ease-in-out infinite;
+      }
+
+      .special-button:hover::before {
+        left: 100%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 1rem;
+        }
+
+        .milestone-counter {
+          padding: 2rem;
+          margin: 1.5rem 0;
+        }
+
+        .message-card {
+          padding: 2rem;
+          margin: 2rem 0;
+        }
+
+        .main-heart {
+          font-size: 6rem;
+        }
+
+        .message-text {
+          font-size: 1.2rem;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Loading Animation */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #1a4645 0%,
+          #2d7d7a 50%,
+          #006a75 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 1s ease;
+      }
+
+      .loading-heart {
+        font-size: 4rem;
+        background: var(--mint-gradient);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: loadingPulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes loadingPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-heart">💚</div>
+    </div>
+
+    <!-- Mint Particles Background -->
+    <div class="mint-particles" id="mintParticles"></div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <h1 class="hero-title">Happy 21st Monthsary</h1>
+      <p class="hero-subtitle">Bubu</p>
+
+      <div class="heart-display" onclick="createHeartExplosion()">
+        <div class="main-heart">💚</div>
+        <div class="heart-particles" id="heartParticles"></div>
+      </div>
+
+      <div class="message-card">
+        <p class="message-text">
+          My Dearest Bubu,<br /><br />
+          Happy 21st monthsary, my love! 🥰 It's incredible to think we've been
+          together for 21 months, and though we have a long road ahead, I'm so
+          grateful for every step we've taken together. We've had our share of
+          challenges, from silly little arguments to moments where overthinking
+          got the best of us. But through every fight, big or small, we've come
+          out stronger, proving that our love can overcome anything. I'm so
+          thankful for you for your patience, your laughter, and the way you
+          make every moment better. Here's to staying by each other's side, no
+          matter what, and building a future filled with love, cuddles, and our
+          endless inside jokes. I love you always and forever, Bubu.
+        </p>
+      </div>
+
+      <button class="special-button" onclick="showSpecialSurprise()">
+        💚 Click for Something Special 💚
+      </button>
+    </div>
+
+    <script>
+      // Create mint particles
+      function createMintParticles() {
+        const container = document.getElementById("mintParticles");
+
+        for (let i = 0; i < 30; i++) {
+          const particle = document.createElement("div");
+          particle.className = "mint-particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.animationDelay = Math.random() * 15 + "s";
+          particle.style.animationDuration = Math.random() * 10 + 10 + "s";
+          container.appendChild(particle);
+        }
+
+        // Continuously add new particles
+        setInterval(() => {
+          const particle = document.createElement("div");
+          particle.className = "mint-particle";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.animationDuration = Math.random() * 10 + 10 + "s";
+          container.appendChild(particle);
+
+          setTimeout(() => particle.remove(), 20000);
+        }, 2000);
+      }
+
+      // Heart explosion effect
+      function createHeartExplosion() {
+        const container = document.getElementById("heartParticles");
+        const hearts = ["💚", "💙", "🤍", "💖", "✨"];
+
+        for (let i = 0; i < 12; i++) {
+          const heart = document.createElement("div");
+          heart.className = "heart-particle";
+          heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+          heart.style.setProperty(
+            "--random-x",
+            (Math.random() - 0.5) * 300 + "px"
+          );
+          heart.style.left = (Math.random() - 0.5) * 80 + "px";
+          heart.style.animationDelay = Math.random() * 0.5 + "s";
+          container.appendChild(heart);
+
+          setTimeout(() => heart.remove(), 4000);
+        }
+      }
+
+      // Special surprise function
+      function showSpecialSurprise() {
+        const surprises = [
+          "✨ 21 months down, forever to go with you! ✨",
+          "💙 Thank you for being my everything, my love! 💙",
+          "🌟 Every day with you is a gift I treasure! 🌟",
+          "💚 I love you more than words can express, Bubu! 💚",
+          "I love you borapaytsaygang! 💖 ",
+        ];
+
+        const randomSurprise =
+          surprises[Math.floor(Math.random() * surprises.length)];
+
+        // Create beautiful alert
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+            `;
+
+        const content = document.createElement("div");
+        content.style.cssText = `
+                background: rgba(26, 70, 69, 0.95);
+                backdrop-filter: blur(30px);
+                border: 2px solid rgba(0, 245, 212, 0.3);
+                border-radius: 30px;
+                padding: 3rem;
+                text-align: center;
+                color: white;
+                font-size: 1.5rem;
+                max-width: 500px;
+                margin: 2rem;
+                box-shadow: 0 20px 60px rgba(0, 245, 212, 0.3);
+            `;
+
+        content.innerHTML = `
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💚</div>
+                <p style="margin-bottom: 2rem; line-height: 1.6;">${randomSurprise}</p>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: linear-gradient(135deg, #00f5d4, #00d9ff);
+                    border: none;
+                    border-radius: 25px;
+                    padding: 1rem 2rem;
+                    color: #1a4645;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-size: 1rem;
+                ">Close</button>
+            `;
+
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+
+        createHeartExplosion();
+      }
+
+      // Auto heart animation
+      function autoHeartAnimation() {
+        createHeartExplosion();
+        setTimeout(autoHeartAnimation, 8000 + Math.random() * 4000);
+      }
+
+      // Initialize everything immediately
+      document.addEventListener("DOMContentLoaded", function () {
+        // Hide loading screen immediately
+        document.getElementById("loadingOverlay").style.display = "none";
+
+        createMintParticles();
+        setTimeout(autoHeartAnimation, 3000);
+      });
+
+      // Backup in case DOMContentLoaded already fired
+      if (document.readyState === "loading") {
+        // Still loading, wait for the event
+      } else {
+        // Already loaded
+        document.getElementById("loadingOverlay").style.display = "none";
+        createMintParticles();
+        setTimeout(autoHeartAnimation, 3000);
+      }
+
+      // Add click effect to main container
+      document.addEventListener("click", function (e) {
+        if (
+          e.target === document.querySelector(".main-container") ||
+          e.target === document.body
+        ) {
+          createHeartExplosion();
+        }
+      });
+    </script>
+  </body>
+</html>
